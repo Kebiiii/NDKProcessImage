@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/NDKProcessImage.iml" filepath="$PROJECT_DIR$/NDKProcessImage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndkimagedemo/ndkimagedemo.iml" filepath="$PROJECT_DIR$/ndkimagedemo/ndkimagedemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndkprocessimageLibrary/ndkprocessimageLibrary.iml" filepath="$PROJECT_DIR$/ndkprocessimageLibrary/ndkprocessimageLibrary.iml" />
+    </modules>
+  </component>
+</project>
