@@ -12,7 +12,7 @@
 
 extern "C"
 JNIEXPORT jintArray JNICALL IMAGE_JNI_METHOD(getImage)
-    (JNIEnv *env,jobject obj,jintArray buffer,jint width,jint height){
+    (JNIEnv *env,jclass obj,jintArray buffer,jint width,jint height){
     jint* source = (*env).GetIntArrayElements(buffer,0);
     int newSize = width * height;
     float brightness = 0.2f;
@@ -63,7 +63,7 @@ JNIEXPORT jintArray JNICALL IMAGE_JNI_METHOD(getImage)
 }
 
 extern "C"
-JNIEXPORT jbyteArray JNICALL IMAGE_JNI_METHOD(argb2Yuv)(JNIEnv* env, jobject thiz,jintArray argb, int width, int height) {
+JNIEXPORT jbyteArray JNICALL IMAGE_JNI_METHOD(argb2Yuv)(JNIEnv* env, jclass thiz,jintArray argb, jint width, jint height) {
     int frameSize = width * height;
     int yIndex = 0;
     int uvIndex = frameSize;
@@ -107,7 +107,7 @@ JNIEXPORT jbyteArray JNICALL IMAGE_JNI_METHOD(argb2Yuv)(JNIEnv* env, jobject thi
 }
 
 extern "C"
-JNIEXPORT jintArray JNICALL IMAGE_JNI_METHOD(yuv420sp2rgb)(JNIEnv* env, jobject thiz,jbyteArray yuv420sp, int width, int height) {
+JNIEXPORT jintArray JNICALL IMAGE_JNI_METHOD(yuv420sp2rgb)(JNIEnv* env, jclass thiz,jbyteArray yuv420sp, jint width, jint height) {
 
     int frameSize = width * height;
 //    jintArray desArray = env->NewIntArray(frameSize);
