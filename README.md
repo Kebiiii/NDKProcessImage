@@ -29,7 +29,7 @@ allprojects {
 在项目的 `build.gradle` 中添加
 ```
 dependencies {
-    implementation 'com.github.Kebiiii:NDKProcessImage:v1.0.1'
+    implementation 'com.github.Kebiiii:NDKProcessImage:v1.0.2'
 }
 ```
 
