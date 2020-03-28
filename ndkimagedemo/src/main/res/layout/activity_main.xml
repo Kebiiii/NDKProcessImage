@@ -66,18 +66,11 @@
             android:text="原图"
             android:onClick="onClick"/>
         <Button
-            android:id="@+id/javaImageBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="java处理"
-            android:onClick="onClick"/>
-        <Button
             android:id="@+id/ndkImageBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ndk处理"
+            android:text="加深图片"
             android:onClick="onClick"/>
     </LinearLayout>
 
@@ -98,14 +91,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="镜像"
+            android:text="左右镜像"
             android:onClick="onClick"/>
         <Button
             android:id="@+id/convertImageBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="convert"
+            android:text="上下镜像"
             android:onClick="onClick"/>
         <Button
             android:id="@+id/gaussImageBtn"

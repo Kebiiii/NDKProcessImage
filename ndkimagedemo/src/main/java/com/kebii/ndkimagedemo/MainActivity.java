@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.kebii.utils.JavaImageUtils;
 import com.kebii.utils.NativeImageUtils;
 
 import java.nio.ByteBuffer;
@@ -75,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.srcBtn:
                 srcImage();
                 break;
-            case R.id.javaImageBtn:
-                javaImage();
-                break;
             case R.id.ndkImageBtn:
                 ndkImage();
                 break;
@@ -101,10 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void brightnessContrastChange() {
         long startTime = System.currentTimeMillis();
-//        if (mBitmap != mOriginalBitmap) {
-//            mBitmap.recycle();
-//        }
-        Log.e("MainActivity", "brightnessContrastChange brightness: " + brightness + " ,contrast: " + contrast);
         mBitmap = NativeImageUtils.brightnessContrastChange(mOriginalBitmap, brightness, contrast);
         imageView.setImageBitmap(mBitmap);
         Log.e("MainActivity", "brightnessContrastChange time = " + (System.currentTimeMillis() - startTime) + " ms" + mBitmap);
@@ -113,16 +105,6 @@ public class MainActivity extends AppCompatActivity {
     private void srcImage() {
         mBitmap = mOriginalBitmap;
         imageView.setImageBitmap(mBitmap);
-    }
-
-    /**
-     * JAVA 处理图片
-     */
-    private void javaImage() {
-        long startTime = System.currentTimeMillis();
-        mBitmap = JavaImageUtils.getImage(mBitmap);
-        imageView.setImageBitmap(mBitmap);
-        Log.e("MainActivity", "javaImage time = " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
     /**
