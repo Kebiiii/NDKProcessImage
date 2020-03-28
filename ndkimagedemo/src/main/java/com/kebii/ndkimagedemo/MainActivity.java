@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.kebii.utils.NativeImageUtils;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 brightness = seekBar.getProgress() / 255.0f;
+                Toast.makeText(MainActivity.this, "当前亮度值：" + seekBar.getProgress(), Toast.LENGTH_SHORT).show();
             }
         });
         contrastSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 contrast = seekBar.getProgress() / 50.0f - 1.0f;
+                Toast.makeText(MainActivity.this, "当前对比度：" + contrast, Toast.LENGTH_SHORT).show();
             }
         });
     }
