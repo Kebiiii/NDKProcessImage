@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import com.kebii.utils.JavaImageUtils;
 import com.kebii.utils.NativeImageUtils;
@@ -15,34 +16,119 @@ import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity {
 
+    SeekBar brightnessSeekBar;
+    SeekBar contrastSeekBar;
     ImageView imageView;
+    private Bitmap mOriginalBitmap;
     private Bitmap mBitmap;
+    private float brightness = 1.0f;
+    private float contrast = 0.0f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.kebii.ndkprocessimage.R.layout.activity_main);
-        imageView = findViewById(com.kebii.ndkprocessimage.R.id.imageView);
-        mBitmap = BitmapFactory.decodeResource(getResources(), com.kebii.ndkprocessimage.R.mipmap.case1);
+        setContentView(R.layout.activity_main);
+        imageView = findViewById(R.id.imageView);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.case1);
+        mOriginalBitmap = mBitmap;
+        imageView.setImageBitmap(mBitmap);
 
+        brightnessSeekBar = findViewById(R.id.brightness_see_bar);
+        contrastSeekBar = findViewById(R.id.contrast_see_bar);
+        brightnessSeekBar.setProgress(255);
+        contrastSeekBar.setProgress(50);
+        brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                brightness = seekBar.getProgress() / 255.0f;
+            }
+        });
+        contrastSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                contrast = seekBar.getProgress() / 50.0f - 1.0f;
+            }
+        });
     }
 
-    public void srcImage(View view) {
-        mBitmap = BitmapFactory.decodeResource(getResources(), com.kebii.ndkprocessimage.R.mipmap.case1);
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.srcBtn:
+                srcImage();
+                break;
+            case R.id.javaImageBtn:
+                javaImage();
+                break;
+            case R.id.ndkImageBtn:
+                ndkImage();
+                break;
+            case R.id.rotateImageBtn:
+                rotateImage();
+                break;
+            case R.id.mirrorImageBtn:
+                mirrorImage();
+                break;
+            case R.id.convertImageBtn:
+                convertImage();
+                break;
+            case R.id.gaussImageBtn:
+                gaussImage();
+                break;
+            case R.id.brightnessContrastChangeBtn:
+                brightnessContrastChange();
+                break;
+        }
+    }
+
+    private void brightnessContrastChange() {
+        long startTime = System.currentTimeMillis();
+//        if (mBitmap != mOriginalBitmap) {
+//            mBitmap.recycle();
+//        }
+        Log.e("MainActivity", "brightnessContrastChange brightness: " + brightness + " ,contrast: " + contrast);
+        mBitmap = NativeImageUtils.brightnessContrastChange(mOriginalBitmap, brightness, contrast);
+        imageView.setImageBitmap(mBitmap);
+        Log.e("MainActivity", "brightnessContrastChange time = " + (System.currentTimeMillis() - startTime) + " ms" + mBitmap);
+    }
+
+    private void srcImage() {
+        mBitmap = mOriginalBitmap;
         imageView.setImageBitmap(mBitmap);
     }
 
     /**
      * JAVA 处理图片
-     * @param view
      */
-    public void javaImage(View view) {
+    private void javaImage() {
         long startTime = System.currentTimeMillis();
         mBitmap = JavaImageUtils.getImage(mBitmap);
         imageView.setImageBitmap(mBitmap);
         Log.e("MainActivity", "javaImage time = " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
-    public void ndkImage(View view) {
+    /**
+     * NDK 处理图片
+     */
+    private void ndkImage() {
         long startTime = System.currentTimeMillis();
         //利用ndk处理
         int width = mBitmap.getWidth();
@@ -51,20 +137,55 @@ public class MainActivity extends AppCompatActivity {
 //        //将图片像素放进数组
         mBitmap.getPixels(buffer, 0, width, 0, 0, width, height);
         //经过NDK处理
-        int[] result = NativeImageUtils.getImage(buffer, mBitmap.getWidth(), mBitmap.getHeight());
-        Log.e("MainActivity", "ndkImage getImage result.length= "+result.length + ",result:"
-                + result[0]+","+result[1]+","+result[2]+","+result[3]+","+result[4]);
-//        int[] result2 = NativeImageUtils.yuv420sp2rgb(getByteFromBitmap(mBitmap), mBitmap.getWidth(), mBitmap.getHeight());
-//        Log.e("MainActivity", "ndkImage yuv420sp2rgb result2.length= "+result2.length + ",result2:"
-//                + result2[0]+","+result2[1]+","+result2[2]+","+result2[3]+","+result2[4]);
+        int[] result = NativeImageUtils.deepImage(buffer, mBitmap.getWidth(), mBitmap.getHeight());
 
         //产生新的图片
-        mBitmap = Bitmap.createBitmap(result, width, height, Bitmap.Config.RGB_565);
+        mBitmap = Bitmap.createBitmap(result, width, height, Bitmap.Config.ARGB_8888);
         imageView.setImageBitmap(mBitmap);
         Log.e("MainActivity", "ndkImage time = " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
-    public byte[] getByteFromBitmap(Bitmap bitmap){
+    /**
+     * 旋转 处理图片
+     */
+    private void rotateImage() {
+        long startTime = System.currentTimeMillis();
+        mBitmap = NativeImageUtils.rotateBitmap(mBitmap);
+        Log.e("MainActivity", "rotateBitmap time = " + (System.currentTimeMillis() - startTime) + " ms");
+        imageView.setImageBitmap(mBitmap);
+    }
+
+    /**
+     * 镜像 处理图片
+     */
+    private void mirrorImage() {
+        long startTime = System.currentTimeMillis();
+        mBitmap = NativeImageUtils.mirrorBitmap(mBitmap);
+        Log.e("MainActivity", "mirrorImage time = " + (System.currentTimeMillis() - startTime) + " ms");
+        imageView.setImageBitmap(mBitmap);
+    }
+
+    /**
+     * 上下镜像 处理图片
+     */
+    private void convertImage() {
+        long startTime = System.currentTimeMillis();
+        mBitmap = NativeImageUtils.convertBitmap(mBitmap);
+        Log.e("MainActivity", "convertImage time = " + (System.currentTimeMillis() - startTime) + " ms");
+        imageView.setImageBitmap(mBitmap);
+    }
+
+    /**
+     * 高斯模糊 处理图片
+     */
+    private void gaussImage() {
+        long startTime = System.currentTimeMillis();
+        mBitmap = NativeImageUtils.gaussBlur(mBitmap,30);
+        Log.e("MainActivity", "gaussImage time = " + (System.currentTimeMillis() - startTime) + " ms");
+        imageView.setImageBitmap(mBitmap);
+    }
+
+    private byte[] getByteFromBitmap(Bitmap bitmap){
         int bytes = bitmap.getByteCount();
         ByteBuffer buffer = ByteBuffer.allocate(bytes); // Create a new buffer
         bitmap.copyPixelsToBuffer(buffer); // Move the byte data to the buffer

@@ -4,34 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kebii.ndkprocessimage.com.kebii.ndkimagedemo.MainActivity">
+    tools:context="com.kebii.ndkimagedemo.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"/>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll_funtions3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_funtions1"
+        android:orientation="vertical">
+        <SeekBar
+            android:id="@+id/brightness_see_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:min="10"
+            android:max="255"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seekbar_bg_blue_playback"
+            android:thumb="@mipmap/icon_thumb" />
+        <SeekBar
+            android:id="@+id/contrast_see_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:max="100"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seekbar_bg_blue_playback"
+            android:thumb="@mipmap/icon_thumb" />
+        <Button
+            android:id="@+id/brightnessContrastChangeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置亮度和对比度"
+            android:onClick="onClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_funtions1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_funtions2">
+        <Button
+            android:id="@+id/srcBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="原图"
+            android:onClick="onClick"/>
+        <Button
+            android:id="@+id/javaImageBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="java处理"
+            android:onClick="onClick"/>
+        <Button
+            android:id="@+id/ndkImageBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ndk处理"
+            android:onClick="onClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_funtions2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/rotateImageBtn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="原图"
-            android:onClick="srcImage"/>
+            android:layout_weight="1"
+            android:text="旋转"
+            android:onClick="onClick"/>
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/mirrorImageBtn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="java处理"
-            android:onClick="javaImage"/>
+            android:layout_weight="1"
+            android:text="镜像"
+            android:onClick="onClick"/>
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/convertImageBtn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="ndk处理"
-            android:onClick="ndkImage"/>
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:text="convert"
+            android:onClick="onClick"/>
+        <Button
+            android:id="@+id/gaussImageBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="高斯模糊"
+            android:onClick="onClick"/>
+    </LinearLayout>
 </RelativeLayout>
