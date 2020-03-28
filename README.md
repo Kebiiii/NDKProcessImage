@@ -85,7 +85,7 @@ imageView.mirrorBitmap(mBitmap);
 ```
 
 
-##NDKProcessImage 图片处理工具混淆配置
+### NDKProcessImage 图片处理工具混淆配置
 ```
 -keep class com.kebii.utils.**{*;}
 ```
