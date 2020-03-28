@@ -93,6 +93,7 @@ imageView.mirrorBitmap(mBitmap);
 ## 关于我
 
 * **Email**: <545043382@qq.com>
+* **CSDN**: <https://blog.csdn.net/Kebiiii/article/details/105164591>
 
 
 ### 你的 Statr 是我最大的动力，谢谢~~~
