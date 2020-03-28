@@ -1,7 +1,7 @@
 # NDKProcessImage
 ## Introduction
 
-使用 `NDKProcessImage` 实现对图片基本处理，可以用来实现对bitmap的对比度调节、亮度调节、旋转、镜像、高斯模糊等。
+使用 `NDKProcessImage` 实现对图片基本处理，可以用来实现对bitmap的对比度调节、亮度调节、旋转、镜像、高斯模糊、yuv和rgb格式互转等。
 
 
 ## Features
@@ -36,48 +36,57 @@ dependencies {
 
 ## Usage
 
-```
+
 1. 设置bitmap的亮度和对比度：
 亮度：0~1.0f
 对比度：-1.0f~1.0f
+```
 mBitmap = NativeImageUtils.brightnessContrastChange(mOriginalBitmap, brightness, contrast);
 imageView.setImageBitmap(mBitmap);
 ```
 
 2. 对图片的argb数据图像加深：相当于亮度设置为0.2f对比度设置0.2f：
+```
 int[] result = NativeImageUtils.deepImage(buffer, mBitmap.getWidth(), mBitmap.getHeight());
 ```
 
 3. argb2Yuv： 图片的argb数据转为yuv格式：
+```
 byte[] yuvData = NativeImageUtils.argb2Yuv(data,width,height);
 ```
 4. yuv420sp2rgb： 图片的yuv格式转为rgb数据：
+```
 int[] data = NativeImageUtils.yuv420sp2rgb(yuvData,width,height);
 ```
 
 5. gaussBlur: 对bitmap图片进行高斯模糊处理：
 radius： 模糊半径
+```
 mBitmap = NativeImageUtils.gaussBlur(mBitmap,30);
 imageView.setImageBitmap(mBitmap);
 ```
 
 6. rotateBitmap: 对bitmap图片90度旋转顺时针：
+```
 mBitmap = NativeImageUtils.rotateBitmap(mBitmap);
 imageView.setImageBitmap(mBitmap);
 ```
 
 7. convertBitmap: 对bitmap图片上下镜像处理：
+```
 mBitmap = NativeImageUtils.convertBitmap(mBitmap);
 imageView.setImageBitmap(mBitmap);
 ```
 
 8. mirrorBitmap: 对bitmap图片左右镜像处理：
+```
 mBitmap = NativeImageUtils.mirrorBitmap(mBitmap);
 imageView.mirrorBitmap(mBitmap);
 ```
 
 
-##NDKProcessImage 图片处理工具
+##NDKProcessImage 图片处理工具混淆配置
+```
 -keep class com.kebii.utils.**{*;}
 ```
 
