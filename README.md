@@ -38,8 +38,8 @@ dependencies {
 
 
 1. 设置bitmap的亮度和对比度：
-亮度：0~1.0f
-对比度：-1.0f~1.0f
+- 亮度范围：0-1.0f
+- 对比度范围：-1.0f-1.0f
 ```
 mBitmap = NativeImageUtils.brightnessContrastChange(mOriginalBitmap, brightness, contrast);
 imageView.setImageBitmap(mBitmap);
@@ -60,7 +60,7 @@ int[] data = NativeImageUtils.yuv420sp2rgb(yuvData,width,height);
 ```
 
 5. gaussBlur: 对bitmap图片进行高斯模糊处理：
-radius： 模糊半径
+- radius： 模糊半径
 ```
 mBitmap = NativeImageUtils.gaussBlur(mBitmap,30);
 imageView.setImageBitmap(mBitmap);
