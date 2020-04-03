@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #define PI 3.14
 #define ABS(a) ((a)<(0)?(-a):(a))

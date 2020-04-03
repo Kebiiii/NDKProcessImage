@@ -904,7 +904,7 @@ void initSkinMatrix(uint32_t *pix, int w, int h) {
             if ((RGB.blue > 95 && RGB.green > 40 && RGB.red > 20 &&
                  RGB.blue - RGB.red > 15 && RGB.blue - RGB.green > 15) ||//uniform illumination
                 (RGB.blue > 200 && RGB.green > 210 && RGB.red > 170 &&
-                 ABS(RGB.blue - RGB.red) <= 15 && RGB.blue > RGB.red &&
+                 abs(RGB.blue - RGB.red) <= 15 && RGB.blue > RGB.red &&
                  RGB.green > RGB.red))//lateral illumination
                 mSkinMatrix[offset] = 255;
             else
