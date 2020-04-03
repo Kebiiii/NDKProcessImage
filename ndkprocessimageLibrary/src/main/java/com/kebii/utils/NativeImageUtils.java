@@ -45,6 +45,11 @@ public class NativeImageUtils {
     @Keep
     public static native Bitmap mirrorBitmap(Bitmap bitmap);
 
-//    @Keep
-//    public static native int[] gaussBlur(int[] data,int width, int height, int radius);
+    /**
+     * @param smoothValue 0~500
+     * @param whiteValue  0~10
+     */
+    @Keep
+    public static native Bitmap handleSmoothAndWhiteSkin(Bitmap bitmap,float smoothValue,float whiteValue);
+
 }

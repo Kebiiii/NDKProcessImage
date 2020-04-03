@@ -18,11 +18,15 @@ public class MainActivity extends AppCompatActivity {
 
     SeekBar brightnessSeekBar;
     SeekBar contrastSeekBar;
+    SeekBar smoothSeekBar;
+    SeekBar whiteSeekBar;
     ImageView imageView;
     private Bitmap mOriginalBitmap;
     private Bitmap mBitmap;
     private float brightness = 1.0f;
     private float contrast = 0.0f;
+    private float smoothValue = 0.0f;//0~500
+    private float whiteValue = 0.0f;//0~10
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         brightnessSeekBar = findViewById(R.id.brightness_see_bar);
         contrastSeekBar = findViewById(R.id.contrast_see_bar);
+        smoothSeekBar = findViewById(R.id.smooth_see_bar);
+        whiteSeekBar = findViewById(R.id.white_see_bar);
         brightnessSeekBar.setProgress(255);
         contrastSeekBar.setProgress(50);
         brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -70,6 +76,40 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "当前对比度：" + contrast, Toast.LENGTH_SHORT).show();
             }
         });
+        smoothSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                smoothValue = seekBar.getProgress();
+                Toast.makeText(MainActivity.this, "当前磨皮值：" + smoothValue, Toast.LENGTH_SHORT).show();
+            }
+        });
+        whiteSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                whiteValue = seekBar.getProgress();
+                Toast.makeText(MainActivity.this, "当前美白值：" + whiteValue, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onClick(View view) {
@@ -95,7 +135,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.brightnessContrastChangeBtn:
                 brightnessContrastChange();
                 break;
+            case R.id.setSmoothAndWhiteSkinBtn:
+                setSmoothAndWhiteSkin();
+                break;
         }
+    }
+
+    private void setSmoothAndWhiteSkin() {
+        long startTime = System.currentTimeMillis();
+        mBitmap = NativeImageUtils.handleSmoothAndWhiteSkin(mBitmap,smoothValue,whiteValue);
+        imageView.setImageBitmap(mBitmap);
+        Log.e("MainActivity", "filterBlackAndWhite time = " + (System.currentTimeMillis() - startTime) + " ms" + mBitmap);
     }
 
     private void brightnessContrastChange() {

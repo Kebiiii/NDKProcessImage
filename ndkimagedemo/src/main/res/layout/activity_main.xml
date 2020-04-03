@@ -13,9 +13,55 @@
         android:scaleType="centerInside"/>
 
     <LinearLayout
+        android:id="@+id/ll_funtions4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_above="@+id/ll_funtions3"
+        android:orientation="vertical">
+        <SeekBar
+            android:id="@+id/smooth_see_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:min="0"
+            android:max="500"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seekbar_bg_blue_playback"
+            android:thumb="@mipmap/icon_thumb" />
+        <SeekBar
+            android:id="@+id/white_see_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:max="10"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seekbar_bg_blue_playback"
+            android:thumb="@mipmap/icon_thumb" />
+
+        <Button
+            android:id="@+id/setSmoothAndWhiteSkinBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置磨皮和美颜"
+            android:onClick="onClick"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_funtions3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_above="@+id/ll_funtions1"
         android:orientation="vertical">
         <SeekBar
